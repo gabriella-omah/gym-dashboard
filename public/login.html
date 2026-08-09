@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gym Staff Login</title>
+  <style>
+/* ================================
+   GYM LOGIN - MOBILE FIRST CSS
+   ================================ */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #111827;
+  color: #1f2937;
+}
+/* Login card */
+.login-container {
+  width: 100%;
+  max-width: 400px;
+  background: white;
+  padding: 30px 24px;
+  border-radius: 18px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+}
+/* Logo / title */
+.login-container h1 {
+  text-align: center;
+  font-size: 26px;
+  margin-bottom: 8px;
+  color: #111827;
+}
+.login-container p {
+  text-align: center;
+  color: #6b7280;
+  font-size: 14px;
+  margin-bottom: 25px;
+}
+/* Labels */
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+/* Inputs */
+input {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 16px;
+  outline: none;
+}
+input:focus {
+  border-color: #111827;
+  box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.08);
+}
+/* Login button */
+button {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  background: #111827;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+button:hover {
+  opacity: 0.9;
+}
+button:active {
+  transform: scale(0.98);
+}
+/* Message */
+#message {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 14px;
+}
+/* Desktop */
+@media (min-width: 600px) {
+  .login-container {
+    padding: 40px 35px;
+  }
+}
+  </style>
+</head>
+<body>
+  <h1>Gym Staff Login</h1>
+
+<input
+id="email"
+type="email"
+placeholder="Email">
+
+<input
+id="password"
+type="password"
+placeholder="Password">
+
+  <button id="loginButton">
+    Login
+  </button>
+  <div id="message"></div>
+  <script>
+    const loginButton =
+      document.getElementById("loginButton");
+    const message =
+      document.getElementById("message");
+    loginButton.addEventListener("click", async () => {
+      const email =
+        document.getElementById("email").value.trim();
+      const password =
+        document.getElementById("password").value;
+      if (!email || !password) {
+        message.textContent =
+          "Please enter your email and password.";
+        return;
+      }
+      message.textContent = "Logging in...";
+      try {
+        const response = await fetch("/api/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            email,
+            password
+          })
+        });
+        const text = await response.text();
+        console.log("Login status:", response.status);
+        console.log("Login response:", text);
+        if (!text) {
+          message.textContent =
+            "The server returned an empty response.";
+          return;
+        }
+        const result = JSON.parse(text);
+        if (!response.ok) {
+          message.textContent =
+            result.error || "Login failed.";
+          return;
+        }
+        localStorage.setItem(
+          "accessToken",
+          result.accessToken
+        );
+        message.textContent =
+          "Login successful!";
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 500);
+      } catch (error) {
+        console.error("Login error:", error);
+        message.textContent =
+          "Something went wrong during login.";
+      }
+    });
+  </script>
+</body>
+</html>
