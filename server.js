@@ -173,13 +173,23 @@ app.post("/api/members", requireStaff, async (req, res) => {
     .single();
 
   if (error) {
-    return res.status(500).json({
-      error: error.message
-    });
-  }
+  console.log("ADD MEMBER ERROR:", error);
+  console.log("ADD MEMBER ERROR MESSAGE:", error.message);
+  console.log("ADD MEMBER ERROR CODE:", error.code);
+  console.log("ADD MEMBER ERROR DETAILS:", error.details);
+  console.log("ADD MEMBER ERROR HINT:", error.hint);
 
-  res.status(201).json(data);
-});
+  return res.status(500).json({
+    error: error.message,
+    code: error.code,
+    details: error.details,
+    hint: error.hint
+  });
+}
+
+console.log("MEMBER ADDED:", data);
+
+res.status(201).json(data);
 
 
 // ==============================
