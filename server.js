@@ -14,10 +14,11 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
-console.log("Supabase URL:", process.env.SUPABASE_URL);
-console.log("Supabase key loaded:", !!process.env.SUPABASE_KEY);
-
-
+console.log("URL exists:", !!process.env.SUPABASE_URL);
+console.log(
+  "SERVICE ROLE KEY exists:",
+  !!process.env.SUPABASE_SERVICE_ROLE_KEY
+);
 // ==============================
 // DATE / MEMBERSHIP FUNCTIONS
 // ==============================
