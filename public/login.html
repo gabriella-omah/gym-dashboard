@@ -6,96 +6,172 @@
   <title>Gym Staff Login</title>
   <style>
 /* ================================
-   GYM LOGIN - MOBILE FIRST CSS
+   GYM DASHBOARD LOGIN
+   MOBILE FIRST
    ================================ */
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
+
 body {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
+
   font-family: Arial, Helvetica, sans-serif;
-  background: #111827;
-  color: #1f2937;
-}
-/* Login card */
-.login-container {
-  width: 100%;
-  max-width: 400px;
-  background: white;
-  padding: 30px 24px;
-  border-radius: 18px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
-}
-/* Logo / title */
-.login-container h1 {
-  text-align: center;
-  font-size: 26px;
-  margin-bottom: 8px;
+
+  background:
+    radial-gradient(circle at top left, #374151 0%, transparent 35%),
+    linear-gradient(135deg, #0f172a, #111827 55%, #020617);
+
   color: #111827;
 }
-.login-container p {
+
+/* Login card */
+
+body > h1,
+body > input,
+body > button,
+body > #message {
+  width: 100%;
+  max-width: 420px;
+}
+
+body {
+  flex-direction: column;
+}
+
+/* Title */
+
+body > h1 {
+  color: #ffffff;
+  font-size: 32px;
+  font-weight: 800;
   text-align: center;
-  color: #6b7280;
-  font-size: 14px;
-  margin-bottom: 25px;
+  margin-bottom: 28px;
+  letter-spacing: -0.5px;
 }
-/* Labels */
-label {
-  display: block;
-  margin-bottom: 6px;
-  font-size: 14px;
-  font-weight: 600;
-  color: #374151;
-}
+
 /* Inputs */
+
 input {
   width: 100%;
-  padding: 14px;
-  margin-bottom: 16px;
-  border: 1px solid #d1d5db;
-  border-radius: 10px;
+  max-width: 420px;
+
+  padding: 15px 16px;
+  margin-bottom: 14px;
+
+  border: 1px solid #374151;
+  border-radius: 12px;
+
+  background: #ffffff;
+  color: #111827;
+
   font-size: 16px;
   outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
 }
+
+input::placeholder {
+  color: #9ca3af;
+}
+
 input:focus {
-  border-color: #111827;
-  box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.08);
+  border-color: #6366f1;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.18);
 }
+
 /* Login button */
+
 button {
   width: 100%;
-  padding: 14px;
+  max-width: 420px;
+
+  padding: 15px;
+  margin-top: 6px;
+
   border: none;
-  border-radius: 10px;
-  background: #111827;
-  color: white;
+  border-radius: 12px;
+
+  background: #6366f1;
+  color: #ffffff;
+
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 700;
+
   cursor: pointer;
-  transition: 0.2s;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
+
 button:hover {
-  opacity: 0.9;
+  background: #4f46e5;
+  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.25);
 }
+
 button:active {
   transform: scale(0.98);
 }
-/* Message */
+
+/* Login message */
+
 #message {
-  margin-top: 15px;
+  width: 100%;
+  max-width: 420px;
+
+  margin-top: 16px;
+
+  color: #e5e7eb;
   text-align: center;
+
   font-size: 14px;
+  line-height: 1.5;
 }
-/* Desktop */
+
+/* Mobile spacing */
+
+@media (max-width: 480px) {
+  body {
+    padding: 24px 18px;
+  }
+
+  body > h1 {
+    font-size: 28px;
+    margin-bottom: 24px;
+  }
+
+  input,
+  button {
+    font-size: 16px;
+  }
+}
+
+/* Tablet / desktop */
+
 @media (min-width: 600px) {
-  .login-container {
-    padding: 40px 35px;
+  body {
+    padding: 40px;
+  }
+
+  body > h1 {
+    font-size: 34px;
+  }
+
+  input,
+  button {
+    padding: 16px;
   }
 }
   </style>
@@ -165,7 +241,7 @@ placeholder="Password">
         message.textContent =
           "Login successful!";
         setTimeout(() => {
-          window.location.href = "/dashboard";
+          window.location.href = "/dashboard.html";
         }, 500);
       } catch (error) {
         console.error("Login error:", error);
