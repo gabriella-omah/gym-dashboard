@@ -4,7 +4,7 @@ const express = require("express");
 const { createClient } = require("@supabase/supabase-js");
 
 const app = express();
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 
 app.use(express.json());
 app.use(express.static("public"));
